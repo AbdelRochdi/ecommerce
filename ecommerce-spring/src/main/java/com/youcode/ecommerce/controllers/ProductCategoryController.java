@@ -7,6 +7,8 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import com.youcode.ecommerce.entities.ProductCategory;
 import com.youcode.ecommerce.services.ProductCategoryService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/product-categories")
 public class ProductCategoryController {
 	
@@ -66,7 +69,7 @@ public class ProductCategoryController {
 		return new ResponseEntity<ProductCategory>(updatedProductCategory, HttpStatus.ACCEPTED);
 	}
 
-	@GetMapping("/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable Long id) {
 		
 		productCategoryService.delete(id);
