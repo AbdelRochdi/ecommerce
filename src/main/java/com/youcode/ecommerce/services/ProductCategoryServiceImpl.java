@@ -3,9 +3,15 @@ package com.youcode.ecommerce.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.youcode.ecommerce.entities.ProductCategory;
 import com.youcode.ecommerce.repositories.ProductCategoryRepository;
 
+@Service
+@Transactional
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	private ProductCategoryRepository productCategoryRepository;
