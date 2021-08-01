@@ -9,6 +9,10 @@ public interface ProductService {
 	
 	List<Product> findAll();
 	
+	List<Product> findAllProductsByCategory(int page, int limit, Long id);
+	
+	List<Product> findAllProductsByKeyword(int page, int limit, String name);
+	
 	Optional<Product> findById(Long id);
 	
 	Product update(Long id, Product product);

@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.youcode.ecommerce.entities.Product;
@@ -23,6 +26,36 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findAll() {
 		return productRepository.findAll();
+	}
+	
+	@Override
+	public List<Product> findAllProductsByCategory(int page, int limit, Long id) {
+		
+		if (page > 0)
+			page -= 1;
+
+		Pageable pageable = PageRequest.of(page, limit);
+
+		Page<Product> productPage = productRepository.findByCategoryId(id, pageable);
+
+		List<Product> products = productPage.getContent();
+		
+		return products;
+	}
+	
+	@Override
+	public List<Product> findAllProductsByKeyword(int page, int limit, String name) {
+		
+		if (page > 0)
+			page -= 1;
+
+		Pageable pageable = PageRequest.of(page, limit);
+
+		Page<Product> productPage = productRepository.findByNameContaining(name, pageable);
+
+		List<Product> products = productPage.getContent();
+		
+		return products;
 	}
 
 	@Override
@@ -44,5 +77,9 @@ public class ProductServiceImpl implements ProductService {
 	public void delete(Long id) {
 		productRepository.deleteById(id);
 	}
+
+	
+
+	
 
 }

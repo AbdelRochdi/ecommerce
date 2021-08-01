@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youcode.ecommerce.entities.Product;
@@ -37,6 +38,26 @@ public class ProductController {
 		List<Product> productList = productService.findAll();
 
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/searchByCategory")
+	public ResponseEntity<List<Product>> getAllProductsByCategory(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "limit", defaultValue = "15") int limit, @RequestParam(value = "category") Long category) {
+
+		List<Product> products = productService.findAllProductsByCategory(page, limit, category);
+
+		return new ResponseEntity<>(products, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/searchByName")
+	public ResponseEntity<List<Product>> getAllProductsByKeyword(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "limit", defaultValue = "15") int limit, @RequestParam(value = "name") String name) {
+
+		List<Product> products = productService.findAllProductsByKeyword(page, limit, name);
+
+		return new ResponseEntity<>(products, HttpStatus.OK);
+
 	}
 
 	@GetMapping("/{id}")
