@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.youcode.ecommerce.entities.Product;
+import com.youcode.ecommerce.entities.ProductList;
 import com.youcode.ecommerce.repositories.ProductRepository;
 
 @Service
@@ -29,33 +30,39 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> findAllProductsByCategory(int page, int limit, Long id) {
-		
-		if (page > 0)
-			page -= 1;
+	public ProductList findAllProductsByCategory(int page, int limit, Long id) {
 
 		Pageable pageable = PageRequest.of(page, limit);
 
 		Page<Product> productPage = productRepository.findByCategoryId(id, pageable);
-
-		List<Product> products = productPage.getContent();
 		
-		return products;
+		ProductList productList = new ProductList();
+
+		productList.setProductList(productPage.getContent());
+		productList.setTotalElements(productPage.getTotalElements());
+		productList.setTotalPages(productPage.getTotalPages());
+		productList.setPageNumber(productPage.getNumber());
+		productList.setPageSize(productPage.getSize());
+		
+		return productList;
 	}
 	
 	@Override
-	public List<Product> findAllProductsByKeyword(int page, int limit, String name) {
-		
-		if (page > 0)
-			page -= 1;
+	public ProductList findAllProductsByKeyword(int page, int limit, String name) {
 
 		Pageable pageable = PageRequest.of(page, limit);
 
 		Page<Product> productPage = productRepository.findByNameContaining(name, pageable);
-
-		List<Product> products = productPage.getContent();
 		
-		return products;
+		ProductList productList = new ProductList();
+
+		productList.setProductList(productPage.getContent());
+		productList.setTotalElements(productPage.getTotalElements());
+		productList.setTotalPages(productPage.getTotalPages());
+		productList.setPageNumber(productPage.getNumber());
+		productList.setPageSize(productPage.getSize());
+		
+		return productList;
 	}
 
 	@Override

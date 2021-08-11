@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import com.youcode.ecommerce.entities.Product;
+import com.youcode.ecommerce.entities.ProductList;
 
 public interface ProductService {
 	
 	List<Product> findAll();
 	
-	List<Product> findAllProductsByCategory(int page, int limit, Long id);
+	ProductList findAllProductsByCategory(int page, int limit, Long id);
 	
-	List<Product> findAllProductsByKeyword(int page, int limit, String name);
+	ProductList findAllProductsByKeyword(int page, int limit, String name);
 	
 	Optional<Product> findById(Long id);
 	

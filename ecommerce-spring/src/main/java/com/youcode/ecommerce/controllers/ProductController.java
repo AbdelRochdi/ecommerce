@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youcode.ecommerce.entities.Product;
+import com.youcode.ecommerce.entities.ProductList;
 import com.youcode.ecommerce.services.ProductService;
 
 @RestController
@@ -41,20 +42,20 @@ public class ProductController {
 	}
 	
 	@GetMapping("/searchByCategory")
-	public ResponseEntity<List<Product>> getAllProductsByCategory(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "limit", defaultValue = "15") int limit, @RequestParam(value = "category") Long category) {
+	public ResponseEntity<ProductList> getAllProductsByCategory(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "category") Long category) {
 
-		List<Product> products = productService.findAllProductsByCategory(page, limit, category);
+		ProductList products = productService.findAllProductsByCategory(page, size, category);
 
 		return new ResponseEntity<>(products, HttpStatus.OK);
 
 	}
 	
 	@GetMapping("/searchByName")
-	public ResponseEntity<List<Product>> getAllProductsByKeyword(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "limit", defaultValue = "15") int limit, @RequestParam(value = "name") String name) {
+	public ResponseEntity<ProductList> getAllProductsByKeyword(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "name") String name) {
 
-		List<Product> products = productService.findAllProductsByKeyword(page, limit, name);
+		ProductList products = productService.findAllProductsByKeyword(page, size, name);
 
 		return new ResponseEntity<>(products, HttpStatus.OK);
 
