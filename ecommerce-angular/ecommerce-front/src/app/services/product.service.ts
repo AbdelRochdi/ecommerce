@@ -4,15 +4,18 @@ import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private host = environment.host;
 
-  private categoryUrl = 'http://localhost:8080/api/product-categories';
+  private baseUrl = this.host + '/api/products';
+
+  private categoryUrl = this.host + '/api/product-categories';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -37,7 +40,7 @@ export class ProductService {
 
   searchProducts(theKeyword: string, thePage: number, thePageSize: number): Observable<GetResponseProducts> {
     const searchUrl = `${this.baseUrl}/searchByName?name=${theKeyword}`
-                    + `&page=${thePage}&size=${thePageSize}`;
+      + `&page=${thePage}&size=${thePageSize}`;
 
     return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
       map(response => response));
