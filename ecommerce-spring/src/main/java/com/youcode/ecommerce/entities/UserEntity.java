@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "user_id", updatable = false, nullable = false)
 	private long id;
 
@@ -52,7 +52,7 @@ public class UserEntity {
 	private String password;
 	
 	@Column(name = "is_enabled")
-	private boolean isEnabled = false;
+	private boolean isEnabled = true;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

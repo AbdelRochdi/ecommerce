@@ -32,10 +32,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
-				.antMatchers(HttpMethod.GET, "/api/users/confirm").permitAll()
-				.antMatchers("/api/users/reset/*").permitAll()
-				.antMatchers("/api/users/reset").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/users/authenticate").permitAll().anyRequest().authenticated().and()
+				.antMatchers(HttpMethod.POST, "/api/users/authenticate").permitAll()
+				.anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
@@ -50,5 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+	
+	
 
 }
