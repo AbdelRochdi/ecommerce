@@ -28,6 +28,15 @@ export class ProductService {
       map(response => response));
   }
 
+  getHomePageProductList(): Observable<Product[]> {
+
+    const searchUrl = `${this.baseUrl}/searchByCategory?category=1`
+      + `&page=${1}&size=${10}`;
+
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
+      map(response => response.productList));
+  }
+
   getProduct(theProductId: number): Observable<Product> {
     const searchUrl = `${this.baseUrl}/${theProductId}`;
     return this.httpClient.get<Product>(searchUrl);

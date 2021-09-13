@@ -165,6 +165,7 @@ a {
   color: #c96;
   text-decoration: none!important;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 ul li a {
     text-decoration: none;
