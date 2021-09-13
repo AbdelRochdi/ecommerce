@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div *ngIf="cartItems.length > 0">
@@ -10,11 +10,7 @@
           </tr>
           <tr *ngFor="let tempCartItem of cartItems">
             <td>
-              <img
-                src="{{ tempCartItem.imageUrl }}"
-                class="img-responsive"
-                width="150px"
-              />
+              <img src="{{ tempCartItem.imageUrl }}" class="img-responsive" width="150px" />
             </td>
             <td>
               <p>{{ tempCartItem.name }}</p>
@@ -22,22 +18,22 @@
             </td>
             <td>
               <div class="items">
-                <label>Quantity:</label>  
+                <label>Quantity:</label>
                 <div class="row no-gutters">
-                    <div class="col">
-                        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <div class="col ml-4 mr-2">
-                        {{tempCartItem.quantity}}
-                    </div>
-                    <div class="col">
-                        <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                    <div class="col-8"></div>
+                  <div class="col">
+                    <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="col ml-4 mr-2">
+                    {{tempCartItem.quantity}}
+                  </div>
+                  <div class="col">
+                    <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <div class="col-8"></div>
                 </div>
               </div>
               <button (click)="remove(tempCartItem)" class="btn btn-primary btn-sm mt-2">Remove</button>
@@ -58,8 +54,150 @@
         </table>
       </div>
       <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
-          Your shopping cart is empty
+        Your shopping cart is empty
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<main class="main">
+  <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="container">
+      <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+    </div><!-- End .container -->
+  </div><!-- End .page-header -->
+
+  <div class="container mb-5">
+
+  </div><!-- End .container -->
+
+
+  <div class="page-content">
+    <div class="cart">
+      <div class="container">
+        <div class="row" *ngIf="cartItems.length > 0">
+          <div class="col-lg-9">
+            <table class="table table-cart table-mobile" >
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody >
+                <tr *ngFor="let tempCartItem of cartItems">
+                  <td class="product-col">
+                    <div class="product">
+                      <figure class="product-media">
+                        <a href="#">
+                          <img src="{{ tempCartItem.imageUrl }}" alt="Product image">
+                        </a>
+                      </figure>
+
+                      <h3 class="product-title">
+                        <a>{{ tempCartItem.name }}</a>
+                      </h3><!-- End .product-title -->
+                    </div><!-- End .product -->
+                  </td>
+                  <td class="price-col">{{ tempCartItem.unitPrice | currency: "USD" }}</td>
+                  <td class="quantity-col">
+                    <div class="cart-product-quantity">
+                      <div class="quantity-row">
+
+                        <button class="page-link" (click)="incrementQuantity(tempCartItem)">
+                          <i class="fas fa-plus"></i>
+                        </button>
+
+                        <h2>{{tempCartItem.quantity}}</h2>
+
+                        <button class="page-link" (click)="decrementQuantity(tempCartItem)">
+                          <i class="fas fa-minus"></i>
+                        </button>
+
+                      </div>
+                    </div><!-- End .cart-product-quantity -->
+                  </td>
+                  <td class="total-col">{{ tempCartItem.quantity * tempCartItem.unitPrice! | currency: "USD" }}</td>
+                  <td class="remove-col"><button class="btn-remove" (click)="remove(tempCartItem)"><i class="icon-close"></i></button></td>
+                </tr>
+                
+              </tbody>
+            </table><!-- End .table table-wishlist -->
+
+            
+          </div><!-- End .col-lg-9 -->
+          <aside class="col-lg-3">
+            <div class="summary summary-cart">
+              <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+              <table class="table table-summary">
+                <tbody>
+                  <tr class="summary-subtotal">
+                    <td>Subtotal:</td>
+                    <td>{{ totalPrice | currency: "USD" }}</td>
+                  </tr><!-- End .summary-subtotal -->
+                  <tr class="summary-shipping">
+                    <td>Shipping:</td>
+                    <td>&nbsp;</td>
+                  </tr>
+
+                  <tr class="summary-shipping-row">
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                        <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+                      </div><!-- End .custom-control -->
+                    </td>
+                    <td>$0.00</td>
+                  </tr><!-- End .summary-shipping-row -->
+
+                  <tr class="summary-shipping-row">
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+                        <label class="custom-control-label" for="standart-shipping">Standart:</label>
+                      </div><!-- End .custom-control -->
+                    </td>
+                    <td>$10.00</td>
+                  </tr><!-- End .summary-shipping-row -->
+
+                  <tr class="summary-shipping-row">
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
+                        <label class="custom-control-label" for="express-shipping">Express:</label>
+                      </div><!-- End .custom-control -->
+                    </td>
+                    <td>$20.00</td>
+                  </tr><!-- End .summary-shipping-row -->
+
+                  <tr class="summary-shipping-estimate">
+                    <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+                    <td>&nbsp;</td>
+                  </tr><!-- End .summary-shipping-estimate -->
+
+                  <tr class="summary-total">
+                    <td>Total:</td>
+                    <td>{{ totalPrice | currency: "USD" }}</td>
+                  </tr><!-- End .summary-total -->
+                </tbody>
+              </table><!-- End .table table-summary -->
+
+              <a routerLink="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+            </div><!-- End .summary -->
+
+            <a routerLink="/products" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
+                class="icon-refresh"></i></a>
+          </aside><!-- End .col-lg-3 -->
+        </div><!-- End .row -->
+        <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
+          Your shopping cart is empty
+        </div>
+      </div><!-- End .container -->
+    </div><!-- End .cart -->
+  </div><!-- End .page-content -->
+</main><!-- End .main -->

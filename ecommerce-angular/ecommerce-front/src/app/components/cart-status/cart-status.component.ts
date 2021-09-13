@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -8,16 +9,19 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartStatusComponent implements OnInit {
 
-  totalPrice: number = 0.00;
+  cartItems: CartItem[] = [];
+  totalPrice: number = 0;
   totalQuantity: number = 0;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.updateCartStatus();
+    this.listCartDetails();
   }
 
-  updateCartStatus() {
+  listCartDetails() {
+    this.cartItems = this.cartService.cartItems;
+
     this.cartService.totalPrice.subscribe(
       data => this.totalPrice = data
     );
@@ -25,6 +29,12 @@ export class CartStatusComponent implements OnInit {
     this.cartService.totalQuantity.subscribe(
       data => this.totalQuantity = data
     );
+
+    this.cartService.computeCartTotals();
   }
+
+  remove(theCartItem: CartItem){
+    this.cartService.remove(theCartItem);
+ }
 
 }

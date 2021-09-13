@@ -46,10 +46,9 @@ public class UserEntity {
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-	@NotBlank
 	@Size(min = 6)
 	@Column(name = "password", nullable = false)
-	private String password;
+	private String password = "123456";
 	
 	@Column(name = "is_enabled")
 	private boolean isEnabled = true;

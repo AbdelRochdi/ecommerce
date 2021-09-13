@@ -1,4 +1,4 @@
-<div class="form-header">
+<!-- <div class="form-header">
   <input
     #myInput
     class="au-input au-input-xl"
@@ -9,4 +9,14 @@
   <button (click)="doSearch(myInput.value)" class="au-btn-submit">
     Search
   </button>
-</div>
+</div> -->
+
+<div class="header-search header-search-extended header-search-visible">
+  <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+  <div >
+      <div class="header-search-wrapper search-wrapper-wide">
+          <input #myInput type="search" class="form-control" (keyup.enter)="doSearch(myInput.value)" placeholder="Search product ..." required>
+          <button (click)="doSearch(myInput.value)" class="btn btn-primary"><i class="icon-search"></i></button>
+      </div><!-- End .header-search-wrapper -->
+  </div>
+</div><!-- End .header-search -->
